@@ -100,5 +100,16 @@ RSpec.describe 'Application show page' do
 
       expect(page).not_to have_button("Submit My Application")
     end
+
+    it 'returns partial matches for pet names & case insensative' do
+      visit("/applications/#{@app_3.id}")
+
+      fill_in("Add a Pet to this Application", with: 'a')
+      click_button("Search")
+
+      expect(page).to have_content('Mr. Pirate')
+      expect(page).to have_content('Clawdia')
+      expect(page).to have_content('Ann')
+    end
   end
 end
