@@ -67,7 +67,7 @@ RSpec.describe 'the shelters show' do
 
   describe 'Admin Shelter Show Page' do
     xit 'lists each pet there is a botton to accept' do
-      visit "/admin/shelters/#{@app}"
+      visit "/admin/shelters/#{@app.id}"
 
       aurora = @shelter_1.name
       rgv = @shelter_2.name

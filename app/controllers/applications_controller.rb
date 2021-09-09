@@ -1,10 +1,11 @@
 class ApplicationsController < ApplicationController
   def new
+    @app = Application.new
   end
 
   def create
-    @app = Application.new(update_app_params)
-    if @app.save(validation: false)
+    @app = Application.new(update_app_params.merge({status: "In Progress"}))
+    if @app.save
       flash[:success] = "Application Created!"
       redirect_to "/applications/#{@app.id}"
     else
@@ -15,7 +16,7 @@ class ApplicationsController < ApplicationController
 
   def update
     @app = Application.find(params[:id])
-    if @app.update(update_app_params)
+    if @app.update(update_app_params.merge({status: "Pending"}))
       redirect_to "/applications/#{@app.id}"
       flash[:success] = "Application submitted: Status is Pending!"
     else
@@ -36,6 +37,6 @@ class ApplicationsController < ApplicationController
   private
 
   def update_app_params
-    params.permit(:name, :street_address, :city, :state, :zip_code, :description, :status)
+    params.require(:application).permit(:name, :street_address, :city, :state, :zip_code, :description, :status)
   end
 end

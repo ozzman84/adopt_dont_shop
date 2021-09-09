@@ -79,7 +79,7 @@ RSpec.describe 'Application show page' do
       fill_in("Enter why you would make a good owner for these pet(s)", with: "Because I'm awesome!")
       click_button("Submit My Application")
       @app.reload
-
+      save_and_open_page
       expect(current_path).to eq("/applications/#{@app.id}")
       expect(page).to have_content("Mr. Pirate")
       expect(page).to have_content("Clawdia")
