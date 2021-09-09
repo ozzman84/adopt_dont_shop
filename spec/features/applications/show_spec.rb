@@ -60,6 +60,7 @@ RSpec.describe 'Application show page' do
       within '#Pesto' do
         click_button("Adopt this Pet")
       end
+
       @app_pets = ApplicationPet.last
 
       expect(current_path).to eq("/applications/#{@app.id}")

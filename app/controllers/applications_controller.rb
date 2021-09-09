@@ -3,8 +3,8 @@ class ApplicationsController < ApplicationController
   end
 
   def create
-    @app = Application.new(application_params)
-    if @app.save
+    @app = Application.new(update_app_params)
+    if @app.save(validation: false)
       flash[:success] = "Application Created!"
       redirect_to "/applications/#{@app.id}"
     else
@@ -15,7 +15,7 @@ class ApplicationsController < ApplicationController
 
   def update
     @app = Application.find(params[:id])
-    if @app.update(application_params)
+    if @app.update(update_app_params)
       redirect_to "/applications/#{@app.id}"
       flash[:success] = "Application submitted: Status is Pending!"
     else
@@ -34,7 +34,8 @@ class ApplicationsController < ApplicationController
   end
 
   private
-  def application_params
-    params.require(:application).permit(:name, :street_address, :city, :state, :zip_code, :description, :status)
+
+  def update_app_params
+    params.permit(:name, :street_address, :city, :state, :zip_code, :description, :status)
   end
 end
